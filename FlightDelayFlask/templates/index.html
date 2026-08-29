@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Flight Delay Prediction</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header {
+            background: #061b3a;
+            color: white;
+            padding: 28px 4%;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 68px;
+            height: 68px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 42px;
+            line-height: 1.1;
+        }
+
+        .header-title h1 span {
+            color: #2998ff;
+        }
+
+        .header-title p {
+            margin: 8px 0 0;
+            font-size: 19px;
+            color: #f8fafc;
+        }
+
+        /* =========================
+           FEATURE CARDS
+        ========================== */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 22px;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .feature:last-child {
+            border-right: none;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #0d3470;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .main {
+            max-width: 1250px;
+            margin: 20px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 26px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.07);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .section-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #0b2a5b;
+        }
+
+        .section-description {
+            margin: 0 0 25px 54px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #0f2f64;
+            margin-bottom: 7px;
+        }
+
+        label .required {
+            color: #dc2626;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            padding: 0 13px;
+            font-size: 14px;
+            color: #334155;
+            outline: none;
+            background: white;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================== */
+
+        .button-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .predict-button,
+        .sample-button,
+        .clear-button {
+            width: 100%;
+            height: 47px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .predict-button {
+            border: none;
+            background: #2563eb;
+            color: white;
+        }
+
+        .predict-button:hover {
+            background: #1d4ed8;
+        }
+
+        .clear-button {
+            border: 1px solid #cbd5e1;
+            background: white;
+            color: #334155;
+        }
+
+        .clear-button:hover {
+            background: #f8fafc;
+        }
+
+        .sample-button {
+            margin-top: 12px;
+            border: 1px solid #93c5fd;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .sample-button:hover {
+            background: #dbeafe;
+        }
+
+        /* =========================
+           RESULTS
+        ========================== */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.9fr 0.9fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .result-box {
+            min-height: 105px;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 16px;
+            background: #f8fbff;
+        }
+
+        .result-box.delay {
+            background: #faf5ff;
+            border-color: #ddd6fe;
+        }
+
+        .result-box.status {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .result-label {
+            font-size: 11px;
+            color: #475569;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .result-value {
+            font-size: 17px;
+            font-weight: bold;
+            color: #0f2f64;
+            word-break: break-word;
+        }
+
+        .result-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7c3aed;
+        }
+
+        .status-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #15803d;
+        }
+
+        .unit {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .header-title h1 {
+                font-size: 30px;
+            }
+
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .feature {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.15);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .header-top {
+                align-items: flex-start;
+            }
+
+            .logo {
+                width: 55px;
+                height: 55px;
+                font-size: 26px;
+            }
+
+            .header-title h1 {
+                font-size: 25px;
+            }
+
+            .header-title p {
+                font-size: 15px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .button-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <div class="logo">
+            ✈
+        </div>
+
+        <div class="header-title">
+            <h1>
+                Smart <span>Flight Delay Prediction</span>
+            </h1>
+
+            <p>
+                Predict Delays. Plan Better. Fly Smarter.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <div>
+                <div class="feature-title">
+                    ML POWERED
+                </div>
+
+                <div class="feature-text">
+                    Random Forest Model
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <div>
+                <div class="feature-title">
+                    HIGH ACCURACY
+                </div>
+
+                <div class="feature-text">
+                    Trained on 100K+ Records
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <div>
+                <div class="feature-title">
+                    FAST PREDICTION
+                </div>
+
+                <div class="feature-text">
+                    Results in Seconds
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
+            <div>
+                <div class="feature-title">
+                    RELIABLE INSIGHTS
+                </div>
+
+                <div class="feature-text">
+                    Data Driven Decisions
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================== -->
+
+<main class="main">
+
+
+    <!-- =========================
+         FLIGHT DETAILS
+    ========================== -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                ▣
+            </div>
+
+            <h2>
+                Flight Details
+            </h2>
+
+        </div>
+
+        <p class="section-description">
+            Enter flight and operational information for prediction
+        </p>
+
+
+        <form
+            method="POST"
+            id="flightForm"
+            autocomplete="off"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- YEAR -->
+
+                <div class="form-group">
+
+                    <label>
+                        Year <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Year"
+                        placeholder="e.g. 2024"
+                        value="{{ form_data.get('Year', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- MONTH -->
+
+                <div class="form-group">
+
+                    <label>
+                        Month <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="Month"
+                        min="1"
+                        max="12"
+                        placeholder="1 - 12"
+                        value="{{ form_data.get('Month', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- AIRLINE CODE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Airline Code <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="AirlineCode"
+                        placeholder="e.g. 0"
+                        value="{{ form_data.get('AirlineCode', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- AIRPORT CODE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Airport Code <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="AirportCode"
+                        placeholder="e.g. 4"
+                        value="{{ form_data.get('AirportCode', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- TOTAL FLIGHTS -->
+
+                <div class="form-group">
+
+                    <label>
+                        Total Flights <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="TotalFlights"
+                        placeholder="e.g. 150"
+                        value="{{ form_data.get('TotalFlights', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DELAYED OVER 15 -->
+
+                <div class="form-group">
+
+                    <label>
+                        Flights Delayed Over 15 Min <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="FlightsDelayedOver15Min"
+                        placeholder="e.g. 25"
+                        value="{{ form_data.get('FlightsDelayedOver15Min', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CARRIER DELAY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Carrier Delay Count <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="CarrierDelayCount"
+                        placeholder="e.g. 10"
+                        value="{{ form_data.get('CarrierDelayCount', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- WEATHER DELAY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Weather Delay Count <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="WeatherDelayCount"
+                        placeholder="e.g. 5"
+                        value="{{ form_data.get('WeatherDelayCount', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- NAS DELAY -->
+
+                <div class="form-group">
+
+                    <label>
+                        NAS Delay Count <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="NASDelayCount"
+                        placeholder="e.g. 8"
+                        value="{{ form_data.get('NASDelayCount', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SECURITY DELAY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Security Delay Count <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="SecurityDelayCount"
+                        placeholder="e.g. 2"
+                        value="{{ form_data.get('SecurityDelayCount', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- LATE AIRCRAFT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Late Aircraft Delay Count <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="LateAircraftDelayCount"
+                        placeholder="e.g. 12"
+                        value="{{ form_data.get('LateAircraftDelayCount', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CANCELLED -->
+
+                <div class="form-group">
+
+                    <label>
+                        Cancelled Flights <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="CancelledFlights"
+                        placeholder="e.g. 1"
+                        value="{{ form_data.get('CancelledFlights', '') }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DIVERTED -->
+
+                <div class="form-group">
+
+                    <label>
+                        Diverted Flights <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        name="DivertedFlights"
+                        placeholder="e.g. 0"
+                        value="{{ form_data.get('DivertedFlights', '') }}"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 LOAD SAMPLE
+            ========================== -->
+
+            <button
+                type="button"
+                class="sample-button"
+                onclick="loadSample()"
+            >
+                Load Sample Data
+            </button>
+
+
+            <!-- =========================
+                 ACTION BUTTONS
+            ========================== -->
+
+            <div class="button-row">
+
+                <button
+                    class="predict-button"
+                    type="submit"
+                >
+                    ✈ &nbsp; Predict Flight Delay
+                </button>
+
+
+                <button
+                    class="clear-button"
+                    type="reset"
+                    id="clearButton"
+                >
+                    Clear All
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         PREDICTION RESULT
+    ========================== -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <div class="section-icon">
+                −
+            </div>
+
+            <h2>
+                Prediction Result
+            </h2>
+
+        </div>
+
+        <p class="section-description">
+            Machine learning prediction based on the submitted flight information
+        </p>
+
+
+        <div class="result-grid">
+
+
+            <!-- PREDICTION SUMMARY -->
+
+            <div class="result-box">
+
+                <div class="result-label">
+                    PREDICTION SUMMARY
+                </div>
+
+                {% if result and result.get('error') %}
+
+                    <div class="result-value">
+                        Error: {{ result['error'] }}
+                    </div>
+
+                {% elif result %}
+
+                    <div class="result-value">
+                        Prediction: {{ result['classification'] }}
+                    </div>
+
+                {% else %}
+
+                    <div class="result-value">
+                        Your prediction will appear here
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- PREDICTED ARRIVAL DELAY -->
+
+            <div class="result-box delay">
+
+                <div class="result-label">
+                    PREDICTED ARRIVAL DELAY
+                </div>
+
+                {% if result and result.get('error') %}
+
+                    <div class="result-number">
+                        --
+                    </div>
+
+                    <span class="unit">
+                        prediction unavailable
+                    </span>
+
+                {% elif result %}
+
+                    <div class="result-number">
+                        {{ result['delay_minutes'] }}
+                    </div>
+
+                    <span class="unit">
+                        minutes
+                    </span>
+
+                {% else %}
+
+                    <div class="result-number">
+                        --
+                    </div>
+
+                    <span class="unit">
+                        minutes
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- DELAY STATUS -->
+
+            <div class="result-box status">
+
+                <div class="result-label">
+                    DELAY STATUS
+                </div>
+
+                {% if result and result.get('error') %}
+
+                    <div class="status-value">
+                        Error
+                    </div>
+
+                {% elif result %}
+
+                    <div class="status-value">
+                        {{ result['classification'] }}
+                    </div>
+
+                {% else %}
+
+                    <div class="status-value">
+                        --
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script>
+
+function loadSample() {
+
+    const sample = {
+
+        Year: "2024",
+
+        Month: "1",
+
+        AirlineCode: "0",
+
+        AirportCode: "4",
+
+        TotalFlights: "150",
+
+        FlightsDelayedOver15Min: "25",
+
+        CarrierDelayCount: "10",
+
+        WeatherDelayCount: "5",
+
+        NASDelayCount: "8",
+
+        SecurityDelayCount: "2",
+
+        LateAircraftDelayCount: "12",
+
+        CancelledFlights: "1",
+
+        DivertedFlights: "0"
+
+    };
+
+
+    Object.keys(sample).forEach(function(name) {
+
+        const field = document.querySelector(
+            '[name="' + name + '"]'
+        );
+
+        if (field) {
+
+            field.value = sample[name];
+
+        }
+
+    });
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const form =
+            document.getElementById("flightForm");
+
+
+        if (form) {
+
+            form.addEventListener(
+                "reset",
+                function() {
+
+                    /*
+                     * Allow the browser's normal reset first,
+                     * then explicitly clear every input.
+                     */
+
+                    setTimeout(
+                        function() {
+
+                            form
+                                .querySelectorAll("input")
+                                .forEach(
+                                    function(input) {
+
+                                        input.value = "";
+
+                                    }
+                                );
+
+                        },
+                        0
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

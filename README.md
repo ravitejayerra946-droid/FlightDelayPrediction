@@ -284,33 +284,65 @@ Regression performance was evaluated using:
 
 
 
-```mermaid
+The project follows the workflow below:
 
-flowchart TD
 
-&#x20;   Historical\["Historical Flight Data"] --> Preprocess\["Data Preprocessing"]
 
-&#x20;   Preprocess --> Features\["Feature Engineering"]
+1\. \*\*Historical Flight Data\*\*
 
-&#x20;   Features --> Classification\["Classification"]
+&#x20;  - Historical airline flight delay data is used as the input dataset.
 
-&#x20;   Features --> Regression\["Regression"]
 
-&#x20;   Classification --> Classifier\["Random Forest Classifier"]
 
-&#x20;   Regression --> Regressor\["Random Forest Regressor"]
+2\. \*\*Data Preprocessing\*\*
 
-&#x20;   Classifier --> Models\["Saved Models"]
+&#x20;  - The dataset is cleaned and prepared for machine learning.
 
-&#x20;   Regressor --> Models
 
-&#x20;   Models --> Flask\["Flask Backend"]
 
-&#x20;   Flask --> Interface\["Web Interface"]
+3\. \*\*Feature Engineering\*\*
 
-&#x20;   Interface --> Prediction\["User Prediction"]
+&#x20;  - Relevant numerical and categorical features are prepared for modelling.
 
-```
+
+
+4\. \*\*Machine Learning\*\*
+
+&#x20;  - \*\*Classification:\*\* Random Forest Classifier predicts whether a flight is delayed.
+
+&#x20;  - \*\*Regression:\*\* Random Forest Regressor predicts the arrival delay in minutes.
+
+
+
+5\. \*\*Model Storage\*\*
+
+&#x20;  - The trained models and preprocessing components are saved as `.pkl` files.
+
+
+
+6\. \*\*Flask Backend\*\*
+
+&#x20;  - The saved models are loaded by the Flask application.
+
+
+
+7\. \*\*Web Interface\*\*
+
+&#x20;  - Users enter flight information through the web interface.
+
+
+
+8\. \*\*Prediction\*\*
+
+&#x20;  - The application returns the predicted delay status and predicted arrival delay.
+
+
+
+\### Project Workflow
+
+
+
+\*\*Historical Flight Data → Data Preprocessing → Feature Engineering → Machine Learning Models → Saved Models → Flask Backend → Web Interface → Prediction\*\*
 
 
 

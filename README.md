@@ -284,67 +284,43 @@ Regression performance was evaluated using:
 
 
 
-```text
+\## Application Architecture
 
-Historical Flight Data
 
-&#x20;       |
 
-&#x20;       v
+```mermaid
 
-Data Preprocessing
+flowchart TD
 
-&#x20;       |
+&#x20;   A\[Historical Flight Data] --> B\[Data Preprocessing]
 
-&#x20;       v
+&#x20;   B --> C\[Feature Engineering]
 
-Feature Engineering
 
-&#x20;       |
 
-&#x20;       +----------------------+
+&#x20;   C --> D\[Classification]
 
-&#x20;       |                      |
+&#x20;   C --> E\[Regression]
 
-&#x20;       v                      v
 
-Classification            Regression
 
-&#x20;       |                      |
+&#x20;   D --> F\[Random Forest Classifier]
 
-&#x20;       v                      v
+&#x20;   E --> G\[Random Forest Regressor]
 
-Random Forest             Random Forest
 
-Classifier                Regressor
 
-&#x20;       |                      |
+&#x20;   F --> H\[Saved Models]
 
-&#x20;       +----------+-----------+
+&#x20;   G --> H
 
-&#x20;                  |
 
-&#x20;                  v
 
-&#x20;            Saved Models
+&#x20;   H --> I\[Flask Backend]
 
-&#x20;              (.pkl)
+&#x20;   I --> J\[Web Interface]
 
-&#x20;                  |
+&#x20;   J --> K\[User Prediction]
 
-&#x20;                  v
-
-&#x20;             Flask Backend
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;            Web Interface
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;             User Prediction
+```
 

@@ -350,7 +350,7 @@ The Flask web application provides a user-friendly interface for entering flight
 
 
 
-<img src="./screenshots/flask\_input.png" alt="Flask Web Interface" width="900">
+<img src="https://raw.githubusercontent.com/ravitejayaragud-droid/FlightDelayPrediction/master/screenshots/flask\_input.png" alt="Flask Web Interface" width="900">
 
 
 
@@ -362,7 +362,7 @@ The application displays the predicted delay status and estimated arrival delay 
 
 
 
-<img src="./screenshots/prediction\_result.png" alt="Flight Delay Prediction Result" width="900">
+<img src="https://raw.githubusercontent.com/ravitejayaragud-droid/FlightDelayPrediction/master/screenshots/prediction\_result.png" alt="Flight Delay Prediction Result" width="900">
 
 
 
@@ -374,5 +374,5 @@ The machine learning models were evaluated using classification accuracy and reg
 
 
 
-<img src="./screenshots/model\_results.png" alt="Model Evaluation Results" width="900">
+<img src="https://raw.githubusercontent.com/ravitejayaragud-droid/FlightDelayPrediction/master/screenshots/model\_results.png" alt="Model Evaluation Results" width="900">
 

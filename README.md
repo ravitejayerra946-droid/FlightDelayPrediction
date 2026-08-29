@@ -350,7 +350,7 @@ The Flask web application provides a user-friendly interface for entering flight
 
 
 
-!\[Flask Web Interface](./screenshots/flask\_input1.png)
+!\[Flask Web Interface](./screenshots/flask\_input.png)
 
 
 

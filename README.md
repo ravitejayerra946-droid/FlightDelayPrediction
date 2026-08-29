@@ -344,7 +344,7 @@ The project follows the workflow below:
 
 The Flask web application provides a user-friendly interface for entering flight and operational information.
 
-![Flask Web Interface](./screenshots/flask_input.png)
+![Flask Web Interface](./screenshots/flask_input1.png)
 
 ### Flight Delay Prediction Result
 

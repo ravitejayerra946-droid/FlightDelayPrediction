@@ -338,17 +338,7 @@ The project follows the workflow below:
 
 
 
-\### Project Workflow
-
-
-
-\*\*Historical Flight Data → Data Preprocessing → Feature Engineering → Machine Learning Models → Saved Models → Flask Backend → Web Interface → Prediction\*\*
-
-
-
-\## Flask Web Application
-
-## Project Screenshots
+\## Project Screenshots
 
 
 
@@ -360,7 +350,7 @@ The Flask web application provides a user-friendly interface for entering flight
 
 
 
-!\[Flask Input Interface](screenshots/flask\_input.png)
+<img src="./screenshots/flask\_input.1.png" alt="Flask Web Interface" width="900">
 
 
 
@@ -372,7 +362,7 @@ The application displays the predicted delay status and estimated arrival delay 
 
 
 
-!\[Prediction Result](screenshots/prediction\_result.png)
+<img src="./screenshots/prediction\_result.png" alt="Flight Delay Prediction Result" width="900">
 
 
 
@@ -384,5 +374,5 @@ The machine learning models were evaluated using classification accuracy and reg
 
 
 
-!\[Model Evaluation Results](screenshots/model\_results.png)
+<img src="./screenshots/model\_results.png" alt="Model Evaluation Results" width="900">
 

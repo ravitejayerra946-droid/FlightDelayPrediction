@@ -286,55 +286,29 @@ Regression performance was evaluated using:
 
 ```mermaid
 
-flowchart TD
+graph LR
 
+&#x20;   A\[Historical Flight Data] --> B\[Data Preprocessing]
 
+&#x20;   B --> C\[Feature Engineering]
 
-&#x20;   A\["Historical Flight Data"]
+&#x20;   C --> D\[Classification]
 
-&#x20;   B\["Data Preprocessing"]
+&#x20;   C --> E\[Regression]
 
-&#x20;   C\["Feature Engineering"]
+&#x20;   D --> F\[Random Forest Classifier]
 
-&#x20;   D\["Classification"]
+&#x20;   E --> G\[Random Forest Regressor]
 
-&#x20;   E\["Regression"]
-
-&#x20;   F\["Random Forest Classifier"]
-
-&#x20;   G\["Random Forest Regressor"]
-
-&#x20;   H\["Saved Models"]
-
-&#x20;   I\["Flask Backend"]
-
-&#x20;   J\["Web Interface"]
-
-&#x20;   K\["User Prediction"]
-
-
-
-&#x20;   A --> B
-
-&#x20;   B --> C
-
-&#x20;   C --> D
-
-&#x20;   C --> E
-
-&#x20;   D --> F
-
-&#x20;   E --> G
-
-&#x20;   F --> H
+&#x20;   F --> H\[Saved Models]
 
 &#x20;   G --> H
 
-&#x20;   H --> I
+&#x20;   H --> I\[Flask Backend]
 
-&#x20;   I --> J
+&#x20;   I --> J\[Web Interface]
 
-&#x20;   J --> K
+&#x20;   J --> K\[User Prediction]
 
 ```
 

@@ -338,41 +338,22 @@ The project follows the workflow below:
 
 
 
-\## Project Screenshots
+## Project Screenshots
 
-
-
-\### Flask Web Interface
-
-
+### Flask Web Interface
 
 The Flask web application provides a user-friendly interface for entering flight and operational information.
 
+![Flask Web Interface](./screenshots/flask_input.png)
 
-
-!\[Flask Web Interface](./screenshots/flask\_input.png)
-
-
-
-\### Flight Delay Prediction Result
-
-
+### Flight Delay Prediction Result
 
 The application displays the predicted delay status and estimated arrival delay after submitting the flight information.
 
+![Flight Delay Prediction Result](./screenshots/prediction_result.png)
 
-
-!\[Flight Delay Prediction Result](./screenshots/prediction\_result.png)
-
-
-
-\### Model Evaluation Results
-
-
+### Model Evaluation Results
 
 The machine learning models were evaluated using classification accuracy and regression metrics including MAE, MSE, RMSE, and R².
 
-
-
-!\[Model Evaluation Results](./screenshots/model\_results.png)
-
+![Model Evaluation Results](./screenshots/model_results.png)
